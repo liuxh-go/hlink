@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-LABEL MAINTAINER likun7981
+LABEL MAINTAINER liuxh-go
 
 ENV DOCKER=true \
     PS1="\u@\h:\w \$ " \

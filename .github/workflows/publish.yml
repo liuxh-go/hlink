@@ -12,7 +12,7 @@ jobs:
   npm:
     # prevents this action from running on forks
     # modify from https://github.com/vitejs/vite/blob/main/.github/workflows/publish.yml
-    if: github.repository == 'likun7981/hlink'
+    if: github.repository == 'liuxh-go/hlink'
     runs-on: ubuntu-latest
     environment: Release
     steps:
@@ -34,18 +34,18 @@ jobs:
       - name: Install deps
         run: pnpm install
 
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#      - name: Creating .npmrc
+#        run: |
+#          cat << EOF > "$HOME/.npmrc"
+#            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+#          EOF
+#        env:
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish package
-        run: pnpm run ci-publish -- ${{ github.ref_name }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+#      - name: Publish package
+#        run: pnpm run ci-publish -- ${{ github.ref_name }}
+#        env:
+#          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   docker:
     runs-on: ubuntu-latest
     needs: npm
@@ -67,5 +67,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          platforms: linux/amd64,linux/arm64
-          tags: likun7981/hlink:latest,likun7981/hlink:${{ github.ref_name }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          tags: wshhz/hlink:latest,wshhz/hlink:${{ github.ref_name }}
